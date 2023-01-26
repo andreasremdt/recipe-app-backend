@@ -1,13 +1,13 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 
+import router from "./router";
+
 export default express()
+  .disable("x-powered-by")
   .use(cors())
   .use(morgan("dev"))
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
-  .disable("x-powered-by")
-  .get("/", (req: Request, res: Response) => {
-    res.send("Hello World");
-  });
+  .use("/api", router);
