@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 
 import router from "./router";
-import handleError from "./middleware/error-handler";
+import handleError from "./middleware/handle-error";
 
 export default express()
   .disable("x-powered-by")
