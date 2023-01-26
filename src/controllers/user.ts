@@ -1,16 +1,14 @@
 import type { Request, Response } from "express";
 
 import prisma from "../database/client";
-import { hashPassword } from "../utils/auth";
+import { comparePasswords, hashPassword } from "../utils/auth";
 
 export async function signup(req: Request, res: Response) {
   try {
     const { email, password, name } = req.body;
 
     const exists = await prisma.user.findFirst({
-      where: {
-        email: email,
-      },
+      where: { email },
     });
 
     if (exists) {
@@ -20,7 +18,7 @@ export async function signup(req: Request, res: Response) {
     const user = await prisma.user.create({
       data: {
         email,
-        password: hashPassword(password),
+        password: await hashPassword(password),
         name,
       },
     });
@@ -31,8 +29,26 @@ export async function signup(req: Request, res: Response) {
   }
 }
 
-export function login(req: Request, res: Response) {
-  res.json({});
+export async function login(req: Request, res: Response) {
+  try {
+    const { email, password } = req.body;
+
+    const user = await prisma.user.findFirst({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new Error("Email or password are invalid.");
+    }
+
+    if (!(await comparePasswords(password, user.password))) {
+      throw new Error("Email or password are invalid.");
+    }
+
+    res.json({ data: user });
+  } catch (ex) {
+    res.status(401).json({ error: (ex as Error).message });
+  }
 }
 
 export function logout(req: Request, res: Response) {

@@ -7,7 +7,7 @@ import validate from "./middleware/validate";
 
 export default express
   .Router()
-  .post("/auth/login", user.login)
+  .post("/auth/login", validate(userSchema), user.login)
   .post("/auth/signup", validate(userSchema), user.signup)
   .post("/auth/logout", user.logout)
 
