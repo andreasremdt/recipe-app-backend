@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 
 import router from "./router";
+import handleError from "./middleware/error-handler";
 
 export default express()
   .disable("x-powered-by")
@@ -10,4 +11,5 @@ export default express()
   .use(morgan("dev"))
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
-  .use("/api", router);
+  .use("/api", router)
+  .use(handleError);
