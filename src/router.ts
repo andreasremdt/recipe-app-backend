@@ -2,11 +2,13 @@ import express from "express";
 
 import * as user from "./controllers/user";
 import * as recipe from "./controllers/recipe";
+import userSchema from "./schemas/user";
+import validate from "./middleware/validate";
 
 export default express
   .Router()
   .post("/auth/login", user.login)
-  .post("/auth/signup", user.signup)
+  .post("/auth/signup", validate(userSchema), user.signup)
   .post("/auth/logout", user.logout)
 
   .get("/recipes", recipe.getAll)
