@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 
 import prisma from "../database/client";
-import { comparePasswords, hashPassword } from "../utils/auth";
+import { comparePasswords, hashPassword, generateJWT } from "../utils/auth";
 
 export async function signup(req: Request, res: Response) {
   try {
@@ -23,7 +23,7 @@ export async function signup(req: Request, res: Response) {
       },
     });
 
-    return res.status(201).json({ data: user });
+    return res.status(201).json({ token: generateJWT(user) });
   } catch (ex) {
     res.status(400).json({ error: (ex as Error).message });
   }
@@ -45,7 +45,7 @@ export async function login(req: Request, res: Response) {
       throw new Error("Email or password are invalid.");
     }
 
-    res.json({ data: user });
+    res.json({ token: generateJWT(user) });
   } catch (ex) {
     res.status(401).json({ error: (ex as Error).message });
   }
