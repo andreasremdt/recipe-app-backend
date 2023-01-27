@@ -5,7 +5,7 @@ import type { User } from "@prisma/client";
 import config from "../config";
 
 export function hashPassword(password: string) {
-  return bcrypt.hash(password, 16);
+  return bcrypt.hash(password, config.bcryptRounds);
 }
 
 export function comparePasswords(password: string, hash: string) {

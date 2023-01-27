@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { hashSync } from "bcrypt";
 
+import config from "../config";
 import prisma from "../database/client";
 
 export const users: Pick<User, "email" | "password" | "name">[] = [
@@ -36,7 +37,7 @@ export default async function seed({ silent = false }: { silent: boolean }) {
     await prisma.user.createMany({
       data: users.map((user) => ({
         ...user,
-        password: hashSync(user.password, 5),
+        password: hashSync(user.password, config.bcryptRounds),
       })),
     });
 
