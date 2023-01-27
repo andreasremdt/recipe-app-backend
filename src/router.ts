@@ -1,6 +1,6 @@
 import express from "express";
 
-import * as user from "./controllers/user";
+import * as session from "./controllers/session";
 import * as recipe from "./controllers/recipe";
 import userSchema from "./schemas/user";
 import recipeSchema from "./schemas/recipe";
@@ -10,9 +10,13 @@ import auth from "./middleware/auth";
 export default express
   .Router()
 
-  .post("/auth/login", validate(userSchema), user.login)
-  .post("/auth/signup", validate(userSchema), user.signup)
-  .post("/auth/logout", user.logout)
+  .get("/me", () => {})
+  .patch("/user/:id", () => {})
+  .delete("/user/:id", () => {})
+
+  .post("/auth/login", validate(userSchema), session.login)
+  .post("/auth/signup", validate(userSchema), session.signup)
+  .post("/auth/logout", session.logout)
 
   .get("/recipes", auth, recipe.getAll)
   .get("/recipes/:id", auth, recipe.get)
