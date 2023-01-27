@@ -1,15 +1,16 @@
-version: "3.8"
+version: "3.9"
 
 services:
   db:
     image: mysql:8
+    container_name: recipes-db
     ports:
       - "3306:3306"
+    volumes:
+      - ./docker/create-databases.sql:/docker-entrypoint-initdb.d/create-databases.sql
+      - db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
-      MYSQL_DATABASE: ${DATABASE_NAME}
-    volumes:
-      - db-data:/var/lib/mysql
 
 volumes:
   db-data:
