@@ -1,6 +1,5 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "recipe-app-backend",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -14,8 +13,11 @@
     "test": "npm run docker:up && prisma migrate deploy && dotenv -e .env.test vitest",
     "test:dev": "dotenv -e .env.test vitest"
   },
-  "author": "Andreas Remdt",
-  "license": "ISC",
+  "author": {
+    "name": "Andreas Remdt",
+    "email": "me@andreasremdt.com",
+    "url": "https://andreasremdt.com"
+  },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
