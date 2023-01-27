@@ -37,27 +37,16 @@ export async function get(req: Request, res: Response, next: NextFunction) {
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   try {
-    const {
-      title,
-      description,
-      thumbnailUrl,
-      ingredients,
-      instructions,
-      rating,
-      difficulty,
-      timeNeeded,
-    } = req.body;
-
     const recipe = await prisma.recipe.create({
       data: {
-        title,
-        description,
-        thumbnailUrl,
-        ingredients,
-        instructions,
-        rating,
-        difficulty,
-        timeNeeded,
+        title: req.body.title,
+        description: req.body.description,
+        thumbnailUrl: req.body.thumbnailUrl,
+        ingredients: req.body.ingredients,
+        instructions: req.body.instructions,
+        rating: req.body.rating,
+        difficulty: req.body.difficulty,
+        timeNeeded: req.body.timeNeeded,
         user: {
           connect: {
             id: req.user?.id,
@@ -78,18 +67,6 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 
 export async function update(req: Request, res: Response, next: NextFunction) {
   try {
-    const {
-      title,
-      description,
-      thumbnailUrl,
-      ingredients,
-      instructions,
-      rating,
-      difficulty,
-      timeNeeded,
-      trashed,
-    } = req.body;
-
     const exists = await prisma.recipe.findUnique({
       where: {
         id_userId: {
@@ -111,15 +88,15 @@ export async function update(req: Request, res: Response, next: NextFunction) {
         },
       },
       data: {
-        title,
-        description,
-        thumbnailUrl,
-        ingredients,
-        instructions,
-        rating,
-        difficulty,
-        timeNeeded,
-        trashed,
+        title: req.body.title,
+        description: req.body.description,
+        thumbnailUrl: req.body.thumbnailUrl,
+        ingredients: req.body.ingredients,
+        instructions: req.body.instructions,
+        rating: req.body.rating,
+        difficulty: req.body.difficulty,
+        timeNeeded: req.body.timeNeeded,
+        trashed: req.body.trashed,
       },
     });
 

@@ -20,7 +20,6 @@ export default express
 
   .post("/auth/login", validate(userSchema), session.login)
   .post("/auth/signup", validate(userSchema), session.signup)
-  .post("/auth/logout", session.logout)
 
   .get("/recipes", auth, recipe.getAll)
   .get("/recipes/:id", auth, recipe.get)
