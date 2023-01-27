@@ -4,6 +4,7 @@ import * as user from "./controllers/user";
 import * as recipe from "./controllers/recipe";
 import userSchema from "./schemas/user";
 import validate from "./middleware/validate";
+import auth from "./middleware/auth";
 
 export default express
   .Router()
@@ -11,8 +12,8 @@ export default express
   .post("/auth/signup", validate(userSchema), user.signup)
   .post("/auth/logout", user.logout)
 
-  .get("/recipes", recipe.getAll)
-  .get("/recipes/:id", recipe.get)
-  .post("/recipes", recipe.create)
-  .patch("/recipes/:id", recipe.update)
-  .delete("/recipes/:id", recipe.destroy);
+  .get("/recipes", auth, recipe.getAll)
+  .get("/recipes/:id", auth, recipe.get)
+  .post("/recipes", auth, recipe.create)
+  .patch("/recipes/:id", auth, recipe.update)
+  .delete("/recipes/:id", auth, recipe.destroy);
