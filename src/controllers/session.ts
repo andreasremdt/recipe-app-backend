@@ -6,7 +6,7 @@ import { comparePasswords, hashPassword, generateJWT } from "../utils/auth";
 export async function signup(req: Request, res: Response) {
   try {
     const exists = await prisma.user.findFirst({
-      where: { email: req.body.password },
+      where: { email: req.body.email },
     });
 
     if (exists) {
