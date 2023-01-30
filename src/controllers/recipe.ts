@@ -6,7 +6,10 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
   try {
     const recipes = await prisma.recipe.findMany({
       where: {
-        userId: req.user?.id,
+        AND: {
+          userId: req.user?.id,
+          trashed: false,
+        },
       },
     });
 
@@ -56,7 +59,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
     });
 
     if (!recipe) {
-      return res.status(404).json({ error: "Not found" });
+      throw new Error("Something went wrong while trying to create the recipe.");
     }
 
     res.status(201).json({ data: recipe });
