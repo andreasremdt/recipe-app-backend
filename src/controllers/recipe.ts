@@ -74,7 +74,7 @@ export async function update(req: Request, res: Response, next: NextFunction) {
       where: {
         id_userId: {
           id: req.params.id,
-          userId: req.user?.id!,
+          userId: req.user?.id as string,
         },
       },
     });
@@ -87,7 +87,7 @@ export async function update(req: Request, res: Response, next: NextFunction) {
       where: {
         id_userId: {
           id: req.params.id,
-          userId: req.user?.id!,
+          userId: req.user?.id as string,
         },
       },
       data: {
@@ -115,7 +115,7 @@ export async function destroy(req: Request, res: Response, next: NextFunction) {
       where: {
         id_userId: {
           id: req.params.id,
-          userId: req.user?.id!,
+          userId: req.user?.id as string,
         },
       },
     });
@@ -128,7 +128,7 @@ export async function destroy(req: Request, res: Response, next: NextFunction) {
       where: {
         id_userId: {
           id: req.params.id,
-          userId: req.user?.id!,
+          userId: req.user?.id as string,
         },
       },
     });

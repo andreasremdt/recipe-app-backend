@@ -16,11 +16,7 @@ export async function login(user: Pick<User, "password" | "email">) {
   return token;
 }
 
-export function getRequest({
-  body,
-  params,
-  headers,
-}: { body?: any; params?: any; headers?: any } = {}) {
+export function getRequest({ body, params, headers }: Partial<Request> = {}) {
   return {
     body: body || {},
     params: params || {},
