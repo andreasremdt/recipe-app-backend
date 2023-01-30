@@ -5,15 +5,11 @@ import { comparePasswords, hashPassword } from "../utils/auth";
 
 export async function get(req: Request, res: Response, next: NextFunction) {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findUniqueOrThrow({
       where: {
         id: req.user?.id,
       },
     });
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
 
     res.json({
       data: {
