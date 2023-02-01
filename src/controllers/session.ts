@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import prisma from "../database/client";
 import { comparePasswords, hashPassword, generateJWT } from "../utils/auth";
 
-export async function signup(req: Request, res: Response) {
+export async function signUp(req: Request, res: Response) {
   try {
     const exists = await prisma.user.findFirst({
       where: { email: req.body.email },
@@ -27,7 +27,7 @@ export async function signup(req: Request, res: Response) {
   }
 }
 
-export async function login(req: Request, res: Response) {
+export async function signIn(req: Request, res: Response) {
   try {
     const user = await prisma.user.findFirst({
       where: { email: req.body.email },

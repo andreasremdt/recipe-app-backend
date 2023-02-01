@@ -10,8 +10,8 @@
     "format:ci": "prettier \"src/**/*\" --check",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "test": "npm run docker:up && prisma migrate deploy && dotenv -e .env.test vitest",
-    "test:dev": "dotenv -e .env.test vitest",
+    "test": "dotenv -e .env.test vitest",
+    "test:ci": "npm run docker:up && prisma migrate deploy && dotenv -e .env.test vitest",
     "lint": "eslint \"src/**/*\""
   },
   "author": {

@@ -18,8 +18,8 @@ export default express
   .patch("/user/:id/password", auth, validate(passwordResetSchema), user.updatePassword)
   .delete("/user/:id", auth, user.destroy)
 
-  .post("/auth/login", validate(userSchema), session.login)
-  .post("/auth/signup", validate(userSchema), session.signup)
+  .post("/auth/sign-in", validate(userSchema), session.signIn)
+  .post("/auth/sign-up", validate(userSchema), session.signUp)
 
   .get("/recipes", auth, recipe.getAll)
   .get("/recipes/:id", auth, recipe.get)

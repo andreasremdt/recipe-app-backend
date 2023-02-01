@@ -8,9 +8,9 @@ beforeEach(async () => {
   await seed({ silent: true });
 });
 
-describe("POST /api/auth/signup", () => {
+describe("POST /api/auth/sign-up", () => {
   test("invalid `email` or `password` parameters return a 422", async () => {
-    let response = await request(server).post("/api/auth/signup");
+    let response = await request(server).post("/api/auth/sign-up");
 
     expect(response.status).toEqual(422);
     expect(response.headers["content-type"]).toMatch(/json/);
@@ -18,7 +18,7 @@ describe("POST /api/auth/signup", () => {
       error: `Bad input. "email" is required. "password" is required`,
     });
 
-    response = await request(server).post("/api/auth/login").send({ email: "", password: "" });
+    response = await request(server).post("/api/auth/sign-in").send({ email: "", password: "" });
 
     expect(response.status).toEqual(422);
     expect(response.body).toMatchObject({
@@ -26,7 +26,7 @@ describe("POST /api/auth/signup", () => {
     });
 
     response = await request(server)
-      .post("/api/auth/login")
+      .post("/api/auth/sign-in")
       .send({ email: users[0].email, password: "short" });
 
     expect(response.status).toEqual(422);
@@ -37,7 +37,7 @@ describe("POST /api/auth/signup", () => {
 
   test("a user can't sign up twice with the same email", async () => {
     const response = await request(server)
-      .post("/api/auth/signup")
+      .post("/api/auth/sign-up")
       .send({ email: users[0].email, password: users[0].password });
 
     expect(response.status).toEqual(400);
@@ -49,7 +49,7 @@ describe("POST /api/auth/signup", () => {
 
   test("a new user is created and the token returned", async () => {
     const response = await request(server)
-      .post("/api/auth/signup")
+      .post("/api/auth/sign-up")
       .send({ email: "test@example.org", password: "password" });
 
     expect(response.status).toEqual(201);
@@ -60,9 +60,9 @@ describe("POST /api/auth/signup", () => {
   });
 });
 
-describe("POST /api/auth/login", () => {
+describe("POST /api/auth/sign-in", () => {
   test("invalid `email` or `password` parameters return a 422", async () => {
-    let response = await request(server).post("/api/auth/login");
+    let response = await request(server).post("/api/auth/sign-in");
 
     expect(response.status).toEqual(422);
     expect(response.headers["content-type"]).toMatch(/json/);
@@ -70,7 +70,7 @@ describe("POST /api/auth/login", () => {
       error: `Bad input. "email" is required. "password" is required`,
     });
 
-    response = await request(server).post("/api/auth/login").send({ email: "" });
+    response = await request(server).post("/api/auth/sign-in").send({ email: "" });
 
     expect(response.status).toEqual(422);
     expect(response.headers["content-type"]).toMatch(/json/);
@@ -79,7 +79,7 @@ describe("POST /api/auth/login", () => {
     });
 
     response = await request(server)
-      .post("/api/auth/login")
+      .post("/api/auth/sign-in")
       .send({ email: users[0].email, password: "short" });
 
     expect(response.status).toEqual(422);
@@ -90,7 +90,7 @@ describe("POST /api/auth/login", () => {
   });
 
   test("an invalid password returns a 401", async () => {
-    const response = await request(server).post("/api/auth/login").send({
+    const response = await request(server).post("/api/auth/sign-in").send({
       email: users[0].email,
       password: "invalid-password",
     });
@@ -103,7 +103,7 @@ describe("POST /api/auth/login", () => {
   });
 
   test("an invalid email returns a 401", async () => {
-    const response = await request(server).post("/api/auth/login").send({
+    const response = await request(server).post("/api/auth/sign-in").send({
       email: users[1].email,
       password: users[0].password,
     });
@@ -116,7 +116,7 @@ describe("POST /api/auth/login", () => {
   });
 
   test("a token is returned if email and password are correct", async () => {
-    const response = await request(server).post("/api/auth/login").send({
+    const response = await request(server).post("/api/auth/sign-in").send({
       email: users[0].email,
       password: users[0].password,
     });

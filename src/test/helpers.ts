@@ -8,7 +8,7 @@ import server from "../server";
 export async function login(user: Pick<User, "password" | "email">) {
   const {
     body: { token },
-  } = await request(server).post("/api/auth/login").send({
+  } = await request(server).post("/api/auth/sign-in").send({
     email: user.email,
     password: user.password,
   });
