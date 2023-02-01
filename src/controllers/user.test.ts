@@ -34,3 +34,27 @@ describe("GET /api/me", () => {
     );
   });
 });
+
+describe("GET /api/user/exists", () => {
+  test("it returns a 200 if no email is provided", async () => {
+    const response = await request(server).get("/api/user/exists");
+
+    expect(response.status).toEqual(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body).toMatchObject({ available: true });
+  });
+
+  test("it checks the availability of an email address", async () => {
+    let response = await request(server).get("/api/user/exists?email=doesntexist@example.org");
+
+    expect(response.status).toEqual(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body).toMatchObject({ available: true });
+
+    response = await request(server).get(`/api/user/exists?email=${users[0].email}`);
+
+    expect(response.status).toEqual(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body).toMatchObject({ available: false });
+  });
+});

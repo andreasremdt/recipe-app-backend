@@ -90,6 +90,23 @@ export async function updatePassword(req: Request, res: Response, next: NextFunc
   }
 }
 
+export async function exists(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (req.query.email) {
+      const exists = await prisma.user.findFirst({
+        where: { email: req.query.email as string },
+        select: { id: true },
+      });
+
+      res.json({ available: !exists });
+    } else {
+      res.json({ available: true });
+    }
+  } catch (ex) {
+    next(ex);
+  }
+}
+
 export async function destroy(req: Request, res: Response, next: NextFunction) {
   try {
     if (req.user?.id !== req.params.id) {

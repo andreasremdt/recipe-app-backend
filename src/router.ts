@@ -14,6 +14,7 @@ export default express
   .Router()
 
   .get("/me", auth, user.get)
+  .get("/user/exists", user.exists)
   .patch("/user/:id/profile", auth, validate(profileUpdateSchema), user.updateProfile)
   .patch("/user/:id/password", auth, validate(passwordResetSchema), user.updatePassword)
   .delete("/user/:id", auth, user.destroy)
