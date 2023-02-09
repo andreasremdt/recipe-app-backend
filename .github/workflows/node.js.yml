@@ -26,6 +26,9 @@ jobs:
 
     env:
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/recipe-app-test
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      BCRYPT_ROUNDS: 3
+      PORT: 3000
 
     steps:
       - uses: actions/checkout@v3
