@@ -1,5 +1,12 @@
 name: Node.js CI
 
+env:
+  DATABASE_NAME: recipe-app-test
+  DATABASE_USER: root
+  DATABASE_PASSWORD: test1234
+  DATABASE_HOST: mysql-master
+  NODE_ENV: test
+
 on:
   push:
     branches: ["main"]
@@ -9,6 +16,33 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # services:
+    #   mysql:
+    #     image: mysql:8
+    #     ports:
+    #       - 3306/tcp
+    #     env:
+    #       DATABASE_NAME: ${{ env.DATABASE_NAME }}
+    #       DATABASE_USER: ${{ env.DATABASE_USER }}
+    #       DATABASE_PASSWORD: ${{ env.DATABASE_PASSWORD }}
+    #       DATABASE_ROOT_PASSWORD: ${{ env.DATABASE_PASSWORD }}
+    #     options: >-
+    #       --name=mysql-master
+    #       --health-cmd="mysqladmin ping"
+    #       --health-interval=10s
+    #       --health-timeout=5s
+    #       --health-retries=3
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: recipe-db-test
+        ports:
+          - "3306:3306"
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     strategy:
       matrix:
@@ -21,6 +55,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+      - name: Set up MySQL
+        run: mysql -u root
+        # run: |
+        #   sudo /etc/init.d/mysql start
+        #   mysql -e 'CREATE DATABASE ${{ env.DATABASE_NAME }};' -u ${{ env.DATABASE_USER }} -p test1234 -h 127.0.0.1
       - name: Install dependencies
         run: npm ci
       - name: Build server
