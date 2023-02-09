@@ -9,7 +9,7 @@
     "format": "prettier \"src/**/*\" --write",
     "format:ci": "prettier \"src/**/*\" --check",
     "test": "dotenv -e .env.test vitest",
-    "test:ci": "docker-compose up -d && prisma migrate deploy && dotenv -e .env.test vitest",
+    "test:ci": "prisma migrate deploy && vitest --run",
     "lint": "eslint \"src/**/*\""
   },
   "author": {

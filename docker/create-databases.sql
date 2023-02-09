@@ -1,2 +1,2 @@
-CREATE DATABASE IF NOT EXISTS `recipe-app-dev`;
-CREATE DATABASE IF NOT EXISTS `recipe-app-test`;
+CREATE DATABASE "recipe-app-dev";
+CREATE DATABASE "recipe-app-test";
