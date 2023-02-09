@@ -34,7 +34,7 @@
     "supertest": "^6.3.3",
     "tsc-watch": "^6.0.0",
     "typescript": "^4.9.4",
-    "vitest": "^0.28.3"
+    "vitest": "^0.28.4"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
