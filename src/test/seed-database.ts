@@ -35,7 +35,8 @@ export const recipes: Omit<Recipe, "createdAt" | "updatedAt">[] = [
     difficulty: "Beginner",
     ingredients: null,
     instructions: null,
-    thumbnailUrl: null,
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1571748982800-fa51082c2224?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     trashed: false,
     rating: 1,
     timeNeeded: 120,
@@ -48,7 +49,8 @@ export const recipes: Omit<Recipe, "createdAt" | "updatedAt">[] = [
     difficulty: "Expert",
     ingredients: null,
     instructions: null,
-    thumbnailUrl: null,
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1673081849734-98f0969d436b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     trashed: true,
     rating: 4,
     timeNeeded: 35,
@@ -88,7 +90,8 @@ export const recipes: Omit<Recipe, "createdAt" | "updatedAt">[] = [
     difficulty: "Intermediate",
     ingredients: null,
     instructions: null,
-    thumbnailUrl: null,
+    thumbnailUrl:
+      "https://plus.unsplash.com/premium_photo-1669130744959-53fdf266d621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     trashed: true,
     rating: 3,
     timeNeeded: 30,
